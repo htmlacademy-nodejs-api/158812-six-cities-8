@@ -1,6 +1,6 @@
 import {FileReader} from './file-reader.interface.js';
 import {readFileSync} from 'node:fs';
-import {Cities, Conveniences, Offer, HousesTypes, UserTypes} from '../../types/index.js';
+import {Cities, Goods, Offer, HousesTypes, UserTypes} from '../../types/index.js';
 
 export class TSVFileReader implements FileReader {
   private rawData = '';
@@ -32,20 +32,20 @@ export class TSVFileReader implements FileReader {
       .filter((row) => row.trim().length > 0)
       .map((line) => line.split('\t'))
       .map(([
-        name,
+        title,
         description,
-        date,
+        uploadDate,
         city,
         previewImage,
-        placeImages,
+        images,
         isPremium,
         isFavorite,
         rating,
         type,
-        roomsAmount,
-        guestsAmount,
+        bedrooms,
+        guests,
         price,
-        conveniences,
+        goods,
         authorName,
         email,
         avatarUrl,
@@ -54,20 +54,20 @@ export class TSVFileReader implements FileReader {
         latitude,
         longitude]) =>
         ({
-          name,
+          title,
           description,
-          date,
+          uploadDate,
           city: city as Cities,
           previewImage,
-          placeImages: placeImages.split(';'),
+          images: images.split(';'),
           isPremium: Boolean(isPremium),
           isFavorite: Boolean(isFavorite),
           rating: Number(rating),
           type: type as HousesTypes,
-          roomsAmount: Number(roomsAmount),
-          guestsAmount: Number(guestsAmount),
+          bedrooms: Number(bedrooms),
+          guests: Number(guests),
           price: Number(price),
-          conveniences: conveniences.split(';') as Conveniences[],
+          goods: goods.split(';') as Goods[],
           author: {
             name: authorName,
             email,
@@ -75,7 +75,7 @@ export class TSVFileReader implements FileReader {
             password,
             type: userType as UserTypes,
           },
-          cityCoordinates: {latitude: Number(latitude), longitude: Number(longitude)},
+          coordinates: {latitude: Number(latitude), longitude: Number(longitude)},
         })
       );
   }
