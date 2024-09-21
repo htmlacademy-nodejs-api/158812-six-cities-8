@@ -1,6 +1,6 @@
 import { OfferGenerator } from './offer-generator.interface.js';
 import { getRandomItem, getRandomItems, generateRandomValue } from '../../helpers/index.js';
-import { MockServerData } from '../../types/mock-server-data.type.js';
+import { MockServerData } from '../../types/index.js';
 
 enum OfferRatings {
   Min = 1,
