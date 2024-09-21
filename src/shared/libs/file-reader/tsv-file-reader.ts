@@ -1,13 +1,15 @@
 import {FileReader} from './file-reader.interface.js';
 import {readFileSync} from 'node:fs';
 import {Cities, Goods, Offer, HousesTypes, UserTypes} from '../../types/index.js';
+import EventEmitter from 'node:events';
 
-export class TSVFileReader implements FileReader {
+export class TSVFileReader extends EventEmitter implements FileReader {
   private rawData = '';
 
   constructor(
     private readonly filename: string,
   ) {
+    super();
   }
 
   public read(): void {
@@ -24,7 +26,7 @@ export class TSVFileReader implements FileReader {
 
   public toArray(): Offer[] {
     if (!this.rawData) {
-      throw new Error('File was not read');
+      // Код для работы с потоками
     }
 
     return this.rawData
