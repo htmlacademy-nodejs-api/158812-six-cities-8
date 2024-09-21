@@ -1,0 +1,106 @@
+{
+  "api": {
+    "titles": [
+      "Beautiful & luxurious apartment at great location",
+      "Wood and stone place",
+      "Canal View Prinsengracht",
+      "Nice, cozy, warm big bed apartment",
+      "Wood and stone place"
+    ],
+    "descriptions": [
+      "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.",
+      "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.",
+      "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.",
+      "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.",
+      "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century."
+    ],
+    "previewImages": [
+      "images/previewImages/image-1.jpg",
+      "images/previewImages/image-2.jpg",
+      "images/previewImages/image-3.jpg",
+      "images/previewImages/image-4.jpg",
+      "images/previewImages/image-5.jpg",
+      "images/previewImages/image-6.jpg"
+    ],
+    "images": [
+      "images/placeImages/image-1.jpg",
+      "images/placeImages/image-2.jpg",
+      "images/placeImages/image-3.jpg",
+      "images/placeImages/image-4.jpg",
+      "images/placeImages/image-5.jpg",
+      "images/placeImages/image-6.jpg",
+      "images/placeImages/image-7.jpg",
+      "images/placeImages/image-8.jpg"
+    ],
+    "cities": [
+      "Paris",
+      "Cologne",
+      "Brussels",
+      "Amsterdam",
+      "Hamburg",
+      "Dusseldorf"
+    ],
+    "housesTypes": [
+      "Apartment",
+      "House",
+      "Room",
+      "Hotel"
+    ],
+    "conveniences": [
+      "Breakfast",
+      "Air conditioning",
+      "Laptop friendly workspace",
+      "Baby seat",
+      "Washer",
+      "Towels",
+      "Fridge"
+    ],
+    "usernames": [
+      "Oliver",
+      "John",
+      "Alena",
+      "Rich",
+      "Emma",
+      "Zero"
+    ],
+    "emails": [
+      "123@mail.ru",
+      "qwerty@gmail.com",
+      "john@example.com",
+      "456@test.com",
+      "789456@yandex.ru"
+    ],
+    "avatars": [
+      "images/avatars/image-1.jpg",
+      "images/avatars/image-2.jpg",
+      "images/avatars/image-3.jpg",
+      "images/avatars/image-4.jpg",
+      "images/avatars/image-5.jpg"
+    ],
+    "passwords": [
+      "yuiophj6@",
+      "123qwerty",
+      "qwerty34",
+      "!!ghjklpi78",
+      "45**33WWW"
+    ],
+    "userTypes": [
+      "обычный",
+      "pro"
+    ],
+    "coordinates": [
+      "48.85661",
+      "50.938361",
+      "50.846557",
+      "52.370216",
+      "53.550341",
+      "51.225402",
+      "2.351499",
+      "6.959974",
+      "4.351697",
+      "4.895168",
+      "10.000654",
+      "6.776314"
+    ]
+  }
+}
