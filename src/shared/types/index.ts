@@ -6,3 +6,4 @@ export * from './user.type.js';
 export * from './user-types.enum.js';
 
 export { MockServerData } from './mock-server-data.type.js';
+export { Component } from './component.enum.js';
