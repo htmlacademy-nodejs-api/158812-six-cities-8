@@ -40,7 +40,7 @@ export class TSVFileReader extends EventEmitter implements FileReader {
     return {
       title,
       description,
-      createdDate,
+      createdDate: new Date(createdDate),
       city: city as Cities,
       previewImage,
       images: this.parseCollection<string>(images),
@@ -102,7 +102,9 @@ export class TSVFileReader extends EventEmitter implements FileReader {
         importedRowCount++;
 
         const parsedOffer = this.parseLineToOffer(completeRow);
-        this.emit('line', parsedOffer);
+        await new Promise((resolve) => {
+          this.emit('line', parsedOffer, resolve);
+        });
       }
     }
 
