@@ -1,5 +1,5 @@
 import { FileReader } from './file-reader.interface.js';
-import { Cities, Goods, Offer, HousesTypes, UserTypes, Coordinates } from '../../types/index.js';
+import { Cities, Goods, Offer, HousesTypes, Coordinates } from '../../types/index.js';
 import EventEmitter from 'node:events';
 import { createReadStream } from 'node:fs';
 
@@ -32,7 +32,6 @@ export class TSVFileReader extends EventEmitter implements FileReader {
       email,
       avatarUrl,
       password,
-      userType,
       coordinates
     ] = line.split('\t');
 
@@ -56,7 +55,7 @@ export class TSVFileReader extends EventEmitter implements FileReader {
         email,
         avatarUrl,
         password,
-        type: userType as UserTypes,
+        isPro: false
       },
       coordinates: this.parseCoordinates(coordinates),
     };
