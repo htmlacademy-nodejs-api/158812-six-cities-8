@@ -50,6 +50,7 @@ export class TSVOfferGenerator implements OfferGenerator {
     const email = getRandomItem(this.mockData.emails);
     const avatarUrl = getRandomItem(this.mockData.avatars);
     const password = getRandomItem(this.mockData.passwords);
+    const userType = getRandomItem<string>(this.mockData.userTypes);
     const coordinates = getRandomItem(this.mockData.coordinates);
     const createdDate = dayjs()
       .subtract(generateRandomValue(FIRST_WEEK_DAY, LAST_WEEK_DAY), 'day')
@@ -61,7 +62,7 @@ export class TSVOfferGenerator implements OfferGenerator {
       isFavorite, rating, houseType,
       bedrooms, guests, price,
       goods, username, email,
-      avatarUrl, password, coordinates
+      avatarUrl, password, userType, coordinates
     ].join('\t');
   }
 }

@@ -2,6 +2,7 @@ import { FileReader } from './file-reader.interface.js';
 import { Cities, Goods, Offer, HousesTypes, Coordinates } from '../../types/index.js';
 import EventEmitter from 'node:events';
 import { createReadStream } from 'node:fs';
+import { UserType } from '../../types/user-type.enum.js';
 
 export class TSVFileReader extends EventEmitter implements FileReader {
   private CHUNK_SIZE = 16384; // 16KB
@@ -32,7 +33,8 @@ export class TSVFileReader extends EventEmitter implements FileReader {
       email,
       avatarUrl,
       password,
-      coordinates
+      coordinates,
+      userTypes,
     ] = line.split('\t');
 
     return {
@@ -55,7 +57,7 @@ export class TSVFileReader extends EventEmitter implements FileReader {
         email,
         avatarUrl,
         password,
-        isPro: false
+        type: userTypes as UserType,
       },
       coordinates: this.parseCoordinates(coordinates),
     };
