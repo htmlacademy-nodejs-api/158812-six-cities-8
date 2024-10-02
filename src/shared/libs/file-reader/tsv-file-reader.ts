@@ -1,7 +1,8 @@
 import { FileReader } from './file-reader.interface.js';
-import { Cities, Goods, Offer, HousesTypes, UserTypes, Coordinates } from '../../types/index.js';
+import { Cities, Goods, Offer, HousesTypes, Coordinates } from '../../types/index.js';
 import EventEmitter from 'node:events';
 import { createReadStream } from 'node:fs';
+import { UserType } from '../../types/user-type.enum.js';
 
 export class TSVFileReader extends EventEmitter implements FileReader {
   private CHUNK_SIZE = 16384; // 16KB
@@ -32,14 +33,14 @@ export class TSVFileReader extends EventEmitter implements FileReader {
       email,
       avatarUrl,
       password,
-      userType,
-      coordinates
+      coordinates,
+      userTypes,
     ] = line.split('\t');
 
     return {
       title,
       description,
-      createdDate,
+      createdDate: new Date(createdDate),
       city: city as Cities,
       previewImage,
       images: this.parseCollection<string>(images),
@@ -56,7 +57,7 @@ export class TSVFileReader extends EventEmitter implements FileReader {
         email,
         avatarUrl,
         password,
-        type: userType as UserTypes,
+        type: userTypes as UserType,
       },
       coordinates: this.parseCoordinates(coordinates),
     };
@@ -101,7 +102,9 @@ export class TSVFileReader extends EventEmitter implements FileReader {
         importedRowCount++;
 
         const parsedOffer = this.parseLineToOffer(completeRow);
-        this.emit('line', parsedOffer);
+        await new Promise((resolve) => {
+          this.emit('line', parsedOffer, resolve);
+        });
       }
     }
 
