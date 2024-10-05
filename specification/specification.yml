@@ -84,6 +84,227 @@ paths:
       security:
         - bearerAuth: []
 
+  /users/favorites:
+    post:
+      summary: Добавление предложения в избранное
+      tags:
+        - users
+      parameters:
+        - name: offerId
+          in: query
+          description: ID предложения, которое нужно добавить в избранное
+          required: true
+          schema:
+            type: integer
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Предложение успешно добавлено в избранное
+        '401':
+          description: Пользователь не авторизован
+        '404':
+          description: Предложение не найдено
+        '409':
+          description: Предложение уже в избранном
+    delete:
+      summary: Удаление предложения из избранного
+      tags:
+        - users
+      parameters:
+        - name: offerId
+          in: query
+          description: ID предложения, которое нужно удалить из избранного
+          required: true
+          schema:
+            type: integer
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Предложение успешно удалено из избранного
+        '401':
+          description: Пользователь не авторизован
+        '404':
+          description: Предложение не найдено
+        '409':
+          description: Предложение не было в избранном
+
+  /offers:
+    post:
+      summary: Создание нового предложения
+      description: Регистрирует новое предложение.
+      tags:
+        - offers
+      requestBody:
+        description: Информация для создания нового предложения.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createOffer'
+        required: true
+      responses:
+        '201':
+          description: Предложение успешно создано.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/offer'
+        '400':
+          description: Неверные данные для создания предложения
+        '401':
+          description: Пользователь не авторизован
+      security:
+        - bearerAuth: []
+
+    get:
+      summary: Список предложений по аренде
+      description: Возвращает список всех предложений по аренде
+      tags:
+        - offers
+      responses:
+        '200':
+          description: Список предложений
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/shortOffer'
+        '400':
+          description: Неверные данные для запроса
+
+  /offers/{id}:
+    get:
+      summary: Детальная информация по предложению
+      description: Сервис предоставляет ресурс для получения детальной информации по одному предложению.
+      tags:
+        - offers
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Информация о предложении
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/offer'
+        '404':
+          description: Предложение не найдено
+    put:
+      summary: Редактирование предложения
+      description: Изменение данных существующего предложения
+      tags:
+        - offers
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/offer'
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Предложение успешно обновлено
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/offer'
+        '400':
+          description: Неверные данные для обновления предложения
+        '401':
+          description: Пользователь не авторизован
+        '403':
+          description: Пользователь не имеет прав для редактирования
+        '404':
+          description: Предложение не найдено
+    delete:
+      summary: Удаление предложения
+      description: Удаление существующего предложения
+      tags:
+        - offers
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - bearerAuth: []
+      responses:
+        '204':
+          description: Предложение успешно удалено
+        '401':
+          description: Пользователь не авторизован
+        '403':
+          description: Пользователь не имеет прав для удаления
+        '404':
+          description: Предложение не найдено
+
+  /offers/{id}/comments:
+    get:
+      summary: Список комментариев для предложения
+      description: Получение всех комментариев, связанных с предложением
+      tags:
+        - comments
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Список комментариев
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/comment'
+        '404':
+          description: Комментарии не найдены
+    post:
+      summary: Добавление комментария для предложения
+      description: Добавление нового комментария к предложению
+      tags:
+        - comments
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/comment'
+      security:
+        - bearerAuth: []
+      responses:
+        '201':
+          description: Комментарий успешно добавлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/comment'
+        '401':
+          description: Пользователь не авторизован
+        '400':
+          description: Неверные данные для добавления комментария
 
 components:
   schemas:
