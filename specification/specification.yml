@@ -19,9 +19,8 @@ paths:
     post:
       tags:
         - users
-      summary: Регистрация пользователя
+      summary: Зарегистрировать пользователя
       description: Регистрирует нового пользователя.
-
       requestBody:
         description: Информация для создания нового пользователя.
         content:
@@ -29,7 +28,6 @@ paths:
             schema:
               $ref: '#/components/schemas/createUser'
         required: true
-
       responses:
         "201":
           description: Пользователь зарегистрирован. Объект пользователя.
@@ -44,7 +42,7 @@ paths:
     post:
       tags:
         - users
-      summary: Авторизация пользователя
+      summary: Авторизоваться на сервере
       description: Авторизует пользователя на основе логина и пароля
       requestBody:
         required: true
@@ -54,24 +52,37 @@ paths:
               $ref: '#/components/schemas/login'
       responses:
         '200':
-          description: Пользователь успешно авторизован
+          description: Статус авторизации
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/token'
         '400':
-          description: Неверные данные для входа
+          description: Ошибка тела запроса
     get:
       tags:
         - users
-      summary: Проверка состояния пользователя
+      summary: Проверить состояние пользователя
       description: Возвращает информацию по авторизованному пользователю
-
       responses:
         '200':
-          description: Пользователь авторизован
+          description: Статус авторизации пользователя
         '401':
           description: Пользователь не авторизован
+      security:
+        - bearerAuth: []
+
+  /users/logout:
+    post:
+      tags:
+        - users
+      summary: Завершить сеанс пользователя
+      description: Завершает сеанс работы — выход из закрытой части приложения.
+      responses:
+        '204':
+          description: Сеанс завершён
+      security:
+        - bearerAuth: []
 
 
 components:
@@ -100,6 +111,7 @@ components:
         avatarUrl:
           type: string
           description: Аватар пользователя в формате .jpg или .png
+          example: avatar.jpg
 
         type:
           type: string
@@ -116,10 +128,6 @@ components:
       type: object
 
       properties:
-        id:
-          type: string
-          example: 6329c3d6a04ab1061c6425ea
-
         email:
           type: string
           example: qwerty@htmlacademy.ru
@@ -129,12 +137,14 @@ components:
         name:
           type: string
           description: Имя пользователя
+          example: qwerty
           minLength: 1
           maxLength: 15
 
         avatarUrl:
           type: string
           description: Аватар пользователя в формате .jpg или .png
+          example: avatar.jpg
 
         type:
           type: string
@@ -148,8 +158,10 @@ components:
         email:
           type: string
           format: email
+          example: qwerty@htmlacademy.ru
         password:
           type: string
+          example: 123456
 
       required:
         - email
@@ -161,7 +173,8 @@ components:
       properties:
         token:
           type: string
-          description: "Токен для авторизации пользователя"
+          description: Токен для авторизации пользователя
+          example: T2xpdmVyLmNvbm5lckBnbWFpbC5jb20=
 
     createOffer:
       type: object
@@ -384,3 +397,9 @@ components:
           maximum: 5
         author:
           $ref: '#/components/schemas/user'
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
