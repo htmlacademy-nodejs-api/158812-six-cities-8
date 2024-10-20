@@ -1,11 +1,12 @@
 import { inject, injectable } from 'inversify';
 import { DocumentType, types } from '@typegoose/typegoose';
 import { OfferService } from './offer-service.interface.js';
-import { Component, SortType } from '../../types/index.js';
+import { Cities, Component, SortType } from '../../types/index.js';
 import { Logger } from '../../libs/logger/index.js';
 import { OfferEntity } from './offer.entity.js';
 import { CreateOfferDto } from './dto/create-offer.dto.js';
 import { UpdateOfferDto } from './dto/update-offer.dto.js';
+import { PREMIUM_OFFERS_LIMIT } from './offer.constant.js';
 
 @injectable()
 export class DefaultOfferService implements OfferService {
@@ -32,6 +33,18 @@ export class DefaultOfferService implements OfferService {
     return this.offerModel
       .find()
       .populate(['userId'])
+      .exec();
+  }
+
+  public async findPremiumOffers(
+    city: Cities
+  ): Promise<DocumentType<OfferEntity>[]> {
+    return this.offerModel
+      .find({
+        city,
+        isPremium: true,
+      })
+      .limit(PREMIUM_OFFERS_LIMIT)
       .exec();
   }
 
