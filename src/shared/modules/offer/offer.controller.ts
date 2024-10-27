@@ -40,7 +40,7 @@ export class OfferController extends BaseController {
       if (existOffer) {
         throw new HttpError(
           StatusCodes.UNPROCESSABLE_ENTITY,
-          `Предложение с id: «${body.title}» уже существует.`,
+          `Предложение с title: «${body.title}» уже существует.`,
           'OfferController');
       }
 
@@ -49,6 +49,5 @@ export class OfferController extends BaseController {
     } catch (error) {
       return next(error);
     }
-
   }
 }

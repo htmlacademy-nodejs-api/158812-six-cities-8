@@ -53,7 +53,7 @@ export class OfferRdo {
   public userId: Ref<UserEntity>;
 
   @Expose()
-  public commentCount: number;
+  public commentsCount: number;
 
   @Expose()
   public coordinates: Coordinates;
