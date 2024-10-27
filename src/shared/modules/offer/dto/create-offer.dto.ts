@@ -1,5 +1,4 @@
-import { Cities, HousesTypes, Goods } from '../../../types/index.js';
-import { CoordinatesDto } from './coordinates.dto.js';
+import { Cities, HousesTypes, Goods, Coordinates } from '../../../types/index.js';
 
 export class CreateOfferDto {
   public title: string;
@@ -17,5 +16,5 @@ export class CreateOfferDto {
   public price: number;
   public goods: Goods[];
   public author: string;
-  public coordinates: CoordinatesDto;
+  public coordinates: Coordinates;
 }
