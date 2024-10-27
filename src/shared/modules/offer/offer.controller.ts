@@ -3,8 +3,10 @@ import { NextFunction, Request, Response } from 'express';
 import { Logger } from '../../libs/logger/index.js';
 import { Component } from '../../types/index.js';
 import { BaseController, HttpError, HttpMethod } from '../../libs/rest/index.js';
-import { OfferRdo, OfferService } from './index.js';
+import { OfferRdo } from './index.js';
 import { StatusCodes } from 'http-status-codes';
+import { OfferService } from './offer-service.interface.js';
+import { ParamOfferId } from './type/param-offerid.type.js';
 import { fillDTO } from '../../helpers/index.js';
 import { CreateOfferRequest } from './create-offer-request.type.js';
 
@@ -17,9 +19,24 @@ export class OfferController extends BaseController {
     super(logger);
 
     this.logger.info('Register routes for OfferController…');
-
+    this.addRoute({ path: '/:offerId', method: HttpMethod.Get, handler: this.show });
     this.addRoute({ path: '/', method: HttpMethod.Get, handler: this.index });
     this.addRoute({ path: '/', method: HttpMethod.Post, handler: this.create });
+  }
+
+  public async show({ params }: Request<ParamOfferId>, res: Response): Promise<void> {
+    const { offerId } = params;
+    const offer = await this.offerService.findById(offerId);
+
+    if (! offer) {
+      throw new HttpError(
+        StatusCodes.NOT_FOUND,
+        `Offer with id ${offerId} not found.`,
+        'OfferController'
+      );
+    }
+
+    this.ok(res, offer);
   }
 
   public async index(_req: Request, res: Response): Promise<void> {
