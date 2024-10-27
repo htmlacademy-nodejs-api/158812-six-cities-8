@@ -32,7 +32,7 @@ export class DefaultOfferService implements OfferService {
   public async find(): Promise<DocumentType<OfferEntity>[]> {
     return this.offerModel
       .find()
-      .populate(['userId'])
+      //.populate(['userId'])
       .exec();
   }
 
@@ -69,7 +69,7 @@ export class DefaultOfferService implements OfferService {
   public async incCommentCount(offerId: string): Promise<DocumentType<OfferEntity> | null> {
     return this.offerModel
       .findByIdAndUpdate(offerId, {'$inc': {
-        commentCount: 1,
+        commentsCount: 1,
       }}).exec();
   }
 
@@ -85,7 +85,7 @@ export class DefaultOfferService implements OfferService {
   public async findDiscussed(count: number): Promise<DocumentType<OfferEntity>[]> {
     return this.offerModel
       .find()
-      .sort({ commentCount: SortType.Down })
+      .sort({ commentsCount: SortType.Down })
       .limit(count)
       .populate(['userId'])
       .exec();

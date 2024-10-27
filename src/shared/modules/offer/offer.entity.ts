@@ -75,7 +75,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   public coordinates!: Coordinates;
 
   @prop({default: 0})
-  public commentCount!: number;
+  public commentsCount!: number;
 
   @prop({
     ref: UserEntity,

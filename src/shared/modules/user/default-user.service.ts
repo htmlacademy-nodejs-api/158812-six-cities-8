@@ -29,6 +29,12 @@ export class DefaultUserService implements UserService {
     return this.userModel.findOne({email});
   }
 
+  public async findById(
+    userId: string
+  ): Promise<DocumentType<UserEntity> | null> {
+    return this.userModel.findById(userId).exec();
+  }
+
   public async findUserFavorites(userId: string): Promise<DocumentType<OfferEntity>[]> {
     const user = await this.userModel
       .findById(userId)
