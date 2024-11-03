@@ -7,12 +7,14 @@ import { OfferEntity } from './offer.entity.js';
 import { CreateOfferDto } from './dto/create-offer.dto.js';
 import { UpdateOfferDto } from './dto/update-offer.dto.js';
 import { PREMIUM_OFFERS_LIMIT } from './offer.constant.js';
+//import { StatusCodes } from 'http-status-codes';
+//import { HttpError } from '../../libs/rest/index.js';
 
 @injectable()
 export class DefaultOfferService implements OfferService {
   constructor(
     @inject(Component.Logger) private readonly logger: Logger,
-    @inject(Component.OfferModel) private readonly offerModel: types.ModelType<OfferEntity>
+    @inject(Component.OfferModel) private readonly offerModel: types.ModelType<OfferEntity>,
   ) {}
 
   public async create(dto: CreateOfferDto): Promise<DocumentType<OfferEntity>> {

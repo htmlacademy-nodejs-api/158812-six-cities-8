@@ -1,11 +1,15 @@
-import { Expose } from 'class-transformer';
+import { Expose, Type } from 'class-transformer';
 import { UserEntity } from '../../user/index.js';
 import { Ref } from '@typegoose/typegoose';
 import { Cities, Coordinates } from '../../../types/cities.enum.js';
 import { Goods } from '../../../types/goods.enum.js';
 import { HousesTypes } from '../../../types/houses-types.enum.js';
+import { UserRdo } from '../../user/rdo/user.rdo.js';
 
 export class OfferRdo {
+
+  @Expose()
+  public id: string;
 
   @Expose()
   public title: string;
@@ -57,4 +61,8 @@ export class OfferRdo {
 
   @Expose()
   public coordinates: Coordinates;
+
+  @Expose({ name: 'userId'})
+  @Type(() => UserRdo)
+  public user: UserRdo;
 }

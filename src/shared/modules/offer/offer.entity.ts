@@ -71,7 +71,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   @prop({ type: () => [String], required: true })
   public goods!: Goods[];
 
-  @prop({ _id: false, required: true })
+  @prop({ _id: false, required: true})
   public coordinates!: Coordinates;
 
   @prop({default: 0})
