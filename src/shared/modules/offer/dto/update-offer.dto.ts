@@ -1,6 +1,7 @@
 import { Cities, Coordinates, Goods, HousesTypes } from '../../../types/index.js';
 
 export class UpdateOfferDto {
+  //public id?: string;
   public title?: string;
   public description?: string;
   public createdDate?: Date;

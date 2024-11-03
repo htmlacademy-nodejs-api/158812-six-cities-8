@@ -8,7 +8,7 @@ import { StatusCodes } from 'http-status-codes';
 import { OfferService } from './offer-service.interface.js';
 import { ParamOfferId } from './type/param-offerid.type.js';
 import { fillDTO } from '../../helpers/index.js';
-import { CreateOfferRequest } from './create-offer-request.type.js';
+import { CreateOfferRequest } from './type/create-offer-request.type.js';
 
 @injectable()
 export class OfferController extends BaseController {
@@ -22,6 +22,7 @@ export class OfferController extends BaseController {
     this.addRoute({ path: '/:offerId', method: HttpMethod.Get, handler: this.show });
     this.addRoute({ path: '/', method: HttpMethod.Get, handler: this.index });
     this.addRoute({ path: '/', method: HttpMethod.Post, handler: this.create });
+    this.addRoute({ path: '/:offerId', method: HttpMethod.Delete, handler: this.delete });
   }
 
   public async show({ params }: Request<ParamOfferId>, res: Response): Promise<void> {
@@ -66,5 +67,20 @@ export class OfferController extends BaseController {
     } catch (error) {
       return next(error);
     }
+  }
+
+  public async delete({ params }: Request<ParamOfferId>, res: Response): Promise<void> {
+    const { offerId } = params;
+    const offer = await this.offerService.deleteById(offerId);
+
+    if (!offer) {
+      throw new HttpError(
+        StatusCodes.NOT_FOUND,
+        `Offer with id ${offerId} not found.`,
+        'OfferController'
+      );
+    }
+
+    this.noContent(res, offer);
   }
 }

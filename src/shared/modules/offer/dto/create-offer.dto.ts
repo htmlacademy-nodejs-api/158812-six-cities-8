@@ -1,6 +1,7 @@
 import { Cities, HousesTypes, Goods, Coordinates } from '../../../types/index.js';
 
 export class CreateOfferDto {
+  //public id: string;
   public title: string;
   public description: string;
   public createdDate: Date;
