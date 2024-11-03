@@ -6,3 +6,4 @@ export { createOfferContainer } from './offer.container.js';
 export { OfferController } from './offer.controller.js';
 export { OfferRdo } from './rdo/offer.rdo.js';
 export { CreateOfferValidationMessage } from './dto/create-offer.messages.js';
+export { UpdateOfferValidationMessage } from './dto/update-offer.messages.js';
