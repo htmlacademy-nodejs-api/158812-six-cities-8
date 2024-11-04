@@ -3,7 +3,6 @@ import { IsArray, IsDateString, IsEnum, IsInt, IsMongoId, Max, MaxLength, Min, M
 import { CreateOfferValidationMessage } from './create-offer.messages.js';
 
 export class CreateOfferDto {
-  //public id: string;
   @MinLength(10, { message: CreateOfferValidationMessage.title.minLength })
   @MaxLength(100, { message: CreateOfferValidationMessage.title.maxLength })
   public title: string;

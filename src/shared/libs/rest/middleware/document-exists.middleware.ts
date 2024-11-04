@@ -3,7 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 
 import { Middleware } from './middleware.interface.js';
 import { HttpError } from '../errors/index.js';
-import { DocumentExists } from '../types/document-exists.interface.js';
+import { DocumentExists } from '../../../types/document-exists.interface.js';
 
 export class DocumentExistsMiddleware implements Middleware {
   constructor(
