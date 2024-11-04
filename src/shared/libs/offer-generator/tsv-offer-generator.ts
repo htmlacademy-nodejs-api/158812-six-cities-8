@@ -4,11 +4,6 @@ import { MockServerData } from '../../types/index.js';
 import dayjs from 'dayjs';
 import { getRandomBoolean } from '../../helpers/common.js';
 
-enum OfferRatings {
-  Min = 1,
-  Max = 5,
-}
-
 enum AvailablePlaceRooms {
   Min = 1,
   Max = 8,
@@ -39,8 +34,6 @@ export class TSVOfferGenerator implements OfferGenerator {
     const previewImage = getRandomItem<string>(this.mockData.previewImages);
     const images = getRandomItems(this.mockData.images).join(';');
     const isPremium = getRandomBoolean();
-    const isFavorite = getRandomBoolean();
-    const rating = generateRandomValue(OfferRatings.Min, OfferRatings.Max).toString();
     const houseType = getRandomItem<string>(this.mockData.housesTypes);
     const bedrooms = generateRandomValue(AvailablePlaceRooms.Min, AvailablePlaceRooms.Max).toString();
     const guests = generateRandomValue(PlaceGuestsAmount.Min, PlaceGuestsAmount.Max).toString();
@@ -59,7 +52,7 @@ export class TSVOfferGenerator implements OfferGenerator {
     return [
       title, description, createdDate, city,
       previewImage, images, isPremium,
-      isFavorite, rating, houseType,
+      houseType,
       bedrooms, guests, price,
       goods, username, email,
       avatarUrl, password, userType, coordinates
