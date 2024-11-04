@@ -100,27 +100,10 @@ export class OfferController extends BaseController {
     this.ok(res, responseData);
   }
 
-  public async create(
-    { body }: CreateOfferRequest,
-    res: Response,
-    next: NextFunction
-  ): Promise<void> {
-    try {
-      console.log(body);
-      const existOffer = await this.offerService.exists(body.title);
-
-      if (existOffer) {
-        throw new HttpError(
-          StatusCodes.UNPROCESSABLE_ENTITY,
-          `Предложение с title: «${body.title}» уже существует.`,
-          'OfferController');
-      }
-
-      const result = await this.offerService.create(body);
-      this.created(res, fillDTO(OfferRdo, result));
-    } catch (error) {
-      return next(error);
-    }
+  public async create({ body, tokenPayload }: CreateOfferRequest, res: Response): Promise<void> {
+    const result = await this.offerService.create({ ...body, author: tokenPayload.id });
+    const offer = await this.offerService.findById(result.id);
+    this.created(res, fillDTO(OfferRdo, offer));
   }
 
   public async delete({ params }: Request<ParamOfferId>, res: Response): Promise<void> {
